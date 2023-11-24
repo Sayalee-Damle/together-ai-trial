@@ -1,0 +1,10 @@
+[questions]
+    [questions.Q1]
+        question = """You are a teacher with a deep knowledge of machine learning and AI. \
+            You provide succinct and accurate answers. Answer the following question: 
+            What is a LLM"""
+    [questions.Q2]
+        question =  """You are an expert python coder. You provide correct code for the user. The task is:
+            Generate a code in Python for displaying digits from 1 to 30
+        """
+    

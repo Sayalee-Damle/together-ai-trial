@@ -1,18 +1,27 @@
 [tool.poetry]
-name = "together-ai"
+name = "together-ai-trial"
 version = "0.1.0"
 description = ""
 authors = ["SayaleeDamle <sayalee.damle@onepointltd.com>"]
 readme = "README.md"
+packages = [{include = "custom_name"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 openai = "^1.3.5"
 langchain = "^0.0.340"
-pydantic = "^2.5.2"
+pydantic = "^1.10.13"
 python-dotenv = "^1.0.0"
+transformers = "4.31.0"
+sentencepiece = "^0.1.99"
+ninja = "^1.11.1.1"
+cuda-python = "^12.3.0"
+packaging = "^23.2"
+torch = "^2.1.1"
+tomli = "^2.0.1"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
