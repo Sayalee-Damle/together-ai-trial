@@ -5,6 +5,5 @@
             What is a LLM"""
     [questions.Q2]
         question =  """You are an expert python coder. You provide correct code for the user. The task is:
-            Generate a code in Python for displaying digits from 1 to 30
-        """
+            Generate a code in Python for displaying digits from 1 to 30"""
     

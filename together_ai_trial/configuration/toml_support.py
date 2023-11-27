@@ -1,4 +1,5 @@
 from pathlib import Path
+import together
 import tomli
 
 from together_ai_trial.configuration.config import cfg
@@ -21,9 +22,22 @@ models = read_models_toml()
 questions = read_questions_toml()
 
 if __name__ == "__main__":
-    for model in models["models"].values():
+    for model in models["models"]:
         print(model)
     
     for q in questions["questions"].values():
         print(q["question"])
-    #print(questions)
+        together.api_key = cfg.together_api_key
+        ques = q["question"]
+        output = together.Complete.create(
+                        prompt = f"<human>: {ques}\n<bot>:", 
+                        model = "togethercomputer/CodeLlama-13b-Python", 
+                        max_tokens = 256,
+                        temperature = 0.8,
+                        top_k = 60,
+                        top_p = 0.6,
+                        repetition_penalty = 1.1,
+                        stop = ['<human>', '\n\n']
+                        )
+        
+        print(output["output"]["choices"][0]["text"])

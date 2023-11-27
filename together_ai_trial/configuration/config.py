@@ -19,12 +19,16 @@ class Config:
             max_tokens= max_tokens_val,
             top_k= top_k_val,
             together_api_key= os.getenv("TOGETHER_API_KEY"),
+            top_p = 0.7,
+            repetition_penalty = 1
         )
         return llm
 
 
     project_root = Path(os.getenv("PROJECT_ROOT"))
     assert project_root.exists()
+
+    together_api_key= os.getenv("TOGETHER_API_KEY")
 
 cfg = Config()
 
