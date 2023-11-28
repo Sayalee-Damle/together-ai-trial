@@ -1,4 +1,5 @@
 from pathlib import Path
+import time
 import together
 import tomli
 
@@ -29,6 +30,7 @@ if __name__ == "__main__":
         print(q["question"])
         together.api_key = cfg.together_api_key
         ques = q["question"]
+        time_start = time.perf_counter()
         output = together.Complete.create(
                         prompt = f"<human>: {ques}\n<bot>:", 
                         model = "togethercomputer/CodeLlama-13b-Python", 
@@ -41,3 +43,5 @@ if __name__ == "__main__":
                         )
         
         print(output["output"]["choices"][0]["text"])
+        time_elapsed = (time.perf_counter() - time_start)
+        print(time_elapsed)

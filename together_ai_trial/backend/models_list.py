@@ -4,6 +4,7 @@ import time
 import together
 
 from together_ai_trial.configuration.toml_support import read_questions_toml
+from together_ai_trial.configuration.config import cfg
 
 questions = read_questions_toml()
 
@@ -28,27 +29,28 @@ large_models = [
     "WizardLM/WizardCoder-15B-V1.0"
 ]
 
-
+together.api_key = cfg.together_api_key
 
 
 for model_name in large_models:
-    time_start = time.perf_counter()
-    print(model_name)
+    #print(model_name)
     for question in questions["questions"].values():
         question_list = question
         q = question_list["question"]
         try:
-            print("in for")
+            #print("in for")
+            time_start = time.perf_counter()
             output = together.Complete.create(
                 prompt = f"<human>: {q}\n<bot>:", 
-                model = model_name, 
-                max_tokens = 256,
-                temperature = 0.8,
-                top_k = 60,
+                model =  model_name, 
+                max_tokens = 500,
+                temperature = 0.1,
+                top_k = 50,
                 top_p = 0.6,
                 repetition_penalty = 1.1,
                 stop = ['<human>', '\n\n']
                 )
+            #print(output["output"]["choices"][0]["text"])
             time_elapsed = (time.perf_counter() - time_start)
             print(time_elapsed)
             index = model_name.find('/') #stores the index of a substring or char
@@ -57,7 +59,7 @@ for model_name in large_models:
             if not code_output.exists():
                 code_output.mkdir(exist_ok=True, parents=True)
 
-            with open(code_output/f"{model_name_file}.txt", mode="a") as f:
+            with open(code_output/f"{model_name_file}.txt", mode="a+") as f:
                 f.write("\n")
                 f.write("=========")
                 f.write(str(datetime.datetime.now()))
@@ -71,5 +73,6 @@ for model_name in large_models:
 
 
         except:
+            print("in except")
             continue
 

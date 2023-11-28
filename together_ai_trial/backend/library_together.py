@@ -4,6 +4,7 @@ import together
 
 from together_ai_trial.configuration.config import cfg
 from together_ai_trial.configuration.toml_support import read_questions_toml
+from together_ai_trial.backend.models_list import large_models
 
 questions = read_questions_toml()
 
@@ -35,7 +36,7 @@ for model_name in model_names:
             output = together.Complete.create(
                 prompt = f"<human>: {q}\n<bot>:", 
                 model = model_name, 
-                max_tokens = 256,
+                max_tokens = 500,
                 temperature = 0.8,
                 top_k = 60,
                 top_p = 0.6,
@@ -49,7 +50,7 @@ for model_name in model_names:
             if not code_output.exists():
                 code_output.mkdir(exist_ok=True, parents=True)
 
-            with open(code_output/f"{model_name_file}.txt", mode="a") as f:
+            with open(code_output/f"{model_name_file}.txt", mode="a+") as f:
                 f.write("\n")
                 f.write("=========")
                 f.write(str(datetime.datetime.now()))
