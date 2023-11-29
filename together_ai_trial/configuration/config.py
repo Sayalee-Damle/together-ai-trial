@@ -11,6 +11,32 @@ load_dotenv()
 
 class Config:
 
+    model_list = [
+        "togethercomputer/alpaca-7b",
+        "Austism/chronos-hermes-13b",
+        "togethercomputer/CodeLlama-7b-Python",
+        "togethercomputer/CodeLlama-7b",
+        "togethercomputer/CodeLlama-13b-Python",
+        "togethercomputer/CodeLlama-34b-Python",
+        "togethercomputer/llama-2-7b-chat",
+        "togethercomputer/llama-2-13b-chat",
+        "togethercomputer/llama-2-70b-chat",
+        "togethercomputer/llama-2-70b",
+        "mistralai/Mistral-7B-v0.1",
+        "Gryphe/MythoMax-L2-13b",
+        "NousResearch/Nous-Hermes-Llama2-13b",
+        "NousResearch/Nous-Hermes-Llama2-70b",
+        "NousResearch/Nous-Hermes-llama-2-7b",
+        "teknium/OpenHermes-2p5-Mistral-7B",
+        "togethercomputer/Qwen-7B-Chat",
+        "Undi95/ReMM-SLERP-L2-13B",
+        "lmsys/vicuna-13b-v1.5-16k",
+        "lmsys/vicuna-13b-v1.5",
+        "lmsys/vicuna-7b-v1.5",
+        "WizardLM/WizardCoder-15B-V1.0",
+        "WizardLM/WizardLM-70B-V1.0"
+    ]
+
     def select_model(self, model_name_val, temperature_val, max_tokens_val, top_k_val):
             
         llm = Together(
@@ -29,6 +55,7 @@ class Config:
     assert project_root.exists()
 
     together_api_key= os.getenv("TOGETHER_API_KEY")
+    ui_timeout = int(os.getenv("UI_TIMEOUT"))
 
 cfg = Config()
 
