@@ -2,10 +2,14 @@ import datetime
 import pathlib
 import time
 import together
+import pandas as pd
+from openpyxl import load_workbook
+
 
 
 from together_ai_trial.configuration.config import cfg
 from together_ai_trial.configuration.log_factory import logger
+import together_ai_trial.services.pylint_services
 
 async def run_model(model_name, question):
     together.api_key = cfg.together_api_key
@@ -47,5 +51,33 @@ async def save_to_file(model, output, time_exec, question):
         f.write("\n")
         f.write("=========")
 
+async def add_to_df(model, question, output, time_exec, pylint_output, pylint_exec):
+    df = pd.DataFrame(index=cfg.model_list, columns=["Model", 'Question', 'Model output', 'Time for execution', 'Pylint result', 'Is the code correct'])
+    selected_columns = ["Model",'Question', 'Model output', 'Time for execution', 'Pylint result', 'Is the code correct']
+    rows_to_add = [model, question, output, time_exec, pylint_output, pylint_exec]
 
+    dictionary = dict(zip(selected_columns, rows_to_add))
+    new_record = pd.DataFrame(dictionary)
+        
+    df = pd.concat([df, new_record], ignore_index=True)
+    return df
+
+    """path = 'open_source_models.xlsx'
+
+   
+    book = load_workbook(path)
+    writer = pd.ExcelWriter(path, engine='openpyxl')
+    writer.book = book
+    writer.sheets = {ws.title: ws for ws in book.worksheets}
+
+    for sheetname in writer.sheets:
+        df.to_excel(writer,sheet_name=sheetname, startrow=writer.sheets[sheetname].max_row, index = False,header= False)
+
+    writer.save()"""
+async def save_to_excel(df):
+    fpath = 'open_source_models.xlsx'
+    with pd.ExcelWriter(fpath, mode="a") as f:
+        df.to_excel(f)
+
+    
     

@@ -21,7 +21,6 @@ class Config:
         "togethercomputer/llama-2-7b-chat",
         "togethercomputer/llama-2-13b-chat",
         "togethercomputer/llama-2-70b-chat",
-        "togethercomputer/llama-2-70b",
         "mistralai/Mistral-7B-v0.1",
         "Gryphe/MythoMax-L2-13b",
         "NousResearch/Nous-Hermes-Llama2-13b",
@@ -56,6 +55,10 @@ class Config:
 
     together_api_key= os.getenv("TOGETHER_API_KEY")
     ui_timeout = int(os.getenv("UI_TIMEOUT"))
+
+    code_output = Path(f"/tmp/togetherai_pylint")
+    if not code_output.exists():
+        code_output.mkdir(exist_ok=True, parents=True)
 
 cfg = Config()
 
