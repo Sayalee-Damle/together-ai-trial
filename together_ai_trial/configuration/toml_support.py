@@ -17,10 +17,14 @@ def read_models_toml() -> dict:
 def read_questions_toml() -> dict:
     return read_toml(cfg.project_root / "questions.toml")
 
+def read_prompts_toml() -> dict:
+    return read_toml(cfg.project_root / "prompts.toml")
+
 
 
 models = read_models_toml()
 questions = read_questions_toml()
+prompts = read_prompts_toml()
 
 if __name__ == "__main__":
     for model in models["models"]:

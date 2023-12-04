@@ -1,0 +1,4 @@
+[prompts]
+
+        [propmpts.comments]
+        system_message = """You are a tool which is used to insert comments in a code"""
